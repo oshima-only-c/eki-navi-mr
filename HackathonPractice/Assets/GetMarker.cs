@@ -6,10 +6,12 @@ public class GetMarker : MonoBehaviour {
     public List<GameObject> MarkerList;
     private bool doOnce = true;
     MoveTo move1;
+    NaviCharacter Navi;
 
     // Use this for initialization
     void Start ()
     {
+        Navi = GameObject.Find("Navi").GetComponent<NaviCharacter>();
         move1 = GetComponent<MoveTo>();
     }
 	
@@ -23,24 +25,19 @@ public class GetMarker : MonoBehaviour {
                 doOnce = false;
                 Debug.Log("Goal");
                 MarkerList.Add(move1.Goal);
+                Navi.SetTargetList(MarkerList);
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other.name);
         if (other.gameObject.tag == "Marker")
         {
             //マーカーリストに追加
             if (other.gameObject != null)
                 MarkerList.Add(other.gameObject);
         }
-    }
-
-    public List<GameObject> GetTargetList()
-    {
-        return MarkerList;
     }
     
 }
