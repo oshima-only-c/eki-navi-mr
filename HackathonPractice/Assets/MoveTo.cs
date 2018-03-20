@@ -35,7 +35,7 @@ public class MoveTo : MonoBehaviour
         agent.SetDestination(target.position);
         if (IsGoal())
         {
-            Invoke("DestroyThis", 0.5f);
+            //Invoke("DestroyThis", 0.5f);
         }
     }
 
