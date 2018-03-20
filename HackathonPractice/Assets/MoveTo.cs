@@ -9,8 +9,9 @@ public class MoveTo : MonoBehaviour
     public GameObject Goal;
     private GameObject[] TargetList;
     private Transform target;
+    private Rigidbody rigid;
 
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     void Start()
     {
@@ -30,18 +31,16 @@ public class MoveTo : MonoBehaviour
 
     void Update()
     {
-
-
         agent.SetDestination(target.position);
-        if (IsGoal())
-        {
-            //Invoke("DestroyThis", 0.5f);
-        }
     }
 
     private void DestroyThis()
     {
         Destroy(this.gameObject);
+        if (IsGoal())
+        {
+            this.transform.position = Goal.transform.position;
+        }
     }
 
     public bool IsGoal()
