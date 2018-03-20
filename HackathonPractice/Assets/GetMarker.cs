@@ -30,13 +30,23 @@ public class GetMarker : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Marker")
         {
             //マーカーリストに追加
             if (other.gameObject != null)
+            {
                 MarkerList.Add(other.gameObject);
+#pragma warning disable CS0618 // 型またはメンバーが古い形式です
+                move1.agent.velocity = Vector3.zero;
+                move1.agent.Stop();
+                if (!move1.IsGoal())
+                {
+                    move1.agent.Resume();
+                }
+#pragma warning restore CS0618 // 型またはメンバーが古い形式です
+            }
         }
     }
     

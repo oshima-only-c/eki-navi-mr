@@ -5,12 +5,13 @@ using UnityEngine;
 public class NaviCharacter : MonoBehaviour {
 
     private List<GameObject> target = null; //ルート用マーカー
-    private float speed = 0.3f;             //スピード
+    public float speed = 0.3f;             //スピード
     private bool doOnce = true;
     private GameObject Player;
     private int index = 0;                  //現在のターゲット
     private bool once = false;
     private MoveTo move1;
+    private bool goal = false;
 
     // Use this for initialization
     void Start()
@@ -24,7 +25,8 @@ public class NaviCharacter : MonoBehaviour {
     void Update()
     {
         //ルートが確定したら
-        if (move1.IsGoal())
+        if (move1.IsGoal()) goal = true;
+        if (goal)
         {
             //targetをセットする時間待ち
             if (!once)
