@@ -13,6 +13,7 @@ public class GetMarker : MonoBehaviour {
     {
         Navi = GameObject.Find("Navi").GetComponent<NaviCharacter>();
         move1 = GetComponent<MoveTo>();
+        //Invoke("Navi.SetTargetList(MarkerList", 5.0f);
     }
 	
 	// Update is called once per frame
