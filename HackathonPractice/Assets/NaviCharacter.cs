@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class NaviCharacter : MonoBehaviour {
 
     private List<GameObject> target = null; //ルート用マーカー
@@ -14,7 +15,8 @@ public class NaviCharacter : MonoBehaviour {
     private MoveTo move1;
     private bool goal = false;
     private NavMeshAgent agent;
-    
+
+
 
     // Use this for initialization
     void Start()
@@ -29,7 +31,8 @@ public class NaviCharacter : MonoBehaviour {
     void Update()
     {
         //ルートが確定したら
-        //if (move1.IsGoal()) goal = true;
+        if ((agent.velocity.y > 0 ? agent.velocity.y : agent.velocity.y * -1) > 0.1f) agent.speed = 0.8f;
+        else agent.speed = 1.6f;
         if (goal)
         {
 
