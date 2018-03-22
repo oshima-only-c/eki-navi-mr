@@ -27,7 +27,7 @@ public class LineRendererScript : MonoBehaviour {
 
         for (int i = 0; i < Route.Count; i++)
         {
-            LineY.SetPosition(i + 1, Route[i].transform.position);
+            LineY.SetPosition(i + 1, Route[i].transform.position + new Vector3(0f,0.3f,0f));
         }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NaviCharacter : MonoBehaviour {
 
@@ -12,22 +13,28 @@ public class NaviCharacter : MonoBehaviour {
     private bool once = false;
     private MoveTo move1;
     private bool goal = false;
+    private NavMeshAgent agent;
+    
 
     // Use this for initialization
     void Start()
     {
         Player = GameObject.Find("Player");
         move1 = GameObject.Find("Sphere").GetComponent<MoveTo>();
+        agent = GetComponent<NavMeshAgent>();
         
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        agent.speed = 2.5f + agent.velocity.y * 10 * 10.0f;
         //ルートが確定したら
         if (move1.IsGoal()) goal = true;
         if (goal)
         {
+
             //targetをセットする時間待ち
             if (!once)
             {
@@ -36,20 +43,22 @@ public class NaviCharacter : MonoBehaviour {
             else
             {
 
-                //ターゲットの方を常に向く
-                Look();
+                //    //ターゲットの方を常に向く
+                //    Look();
 
-                //前に進む
-                this.transform.position += transform.forward * speed;
+                //    //前に進む
+                //    this.transform.position += transform.forward * speed;
 
-                //ターゲットに到達したらリターゲット
+                //    //ターゲットに到達したらリターゲット
+                agent.SetDestination(target[index].transform.position);
                 if (IsArea() && index + 1 < target.Count)
                 {
                     if (doOnce)
                     {
+                        //Debug.Log("Area");
                         index++;
                         doOnce = false;
-                        Look();
+                        //Look();
                     }
                 }
                 else doOnce = true;
@@ -66,13 +75,13 @@ public class NaviCharacter : MonoBehaviour {
 
     private void Look()
     {
-        this.transform.LookAt(target[index].transform);
+        //this.transform.LookAt(target[index].transform);
     }
 
     //範囲に入ったかどうか確認する関数
     private bool IsArea()
     {
-        double area = 3.0f;     // 範囲の半径
+        double area = 1.0f;     // 範囲の半径
         bool xin = true;
         bool zin = true;
 
