@@ -22,16 +22,14 @@ public class NaviCharacter : MonoBehaviour {
         Player = GameObject.Find("Player");
         move1 = GameObject.Find("Sphere").GetComponent<MoveTo>();
         agent = GetComponent<NavMeshAgent>();
-        
-
+        Invoke("SetGoal", 5.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.speed = 2.5f + agent.velocity.y * 10 * 10.0f;
         //ルートが確定したら
-        if (move1.IsGoal()) goal = true;
+        //if (move1.IsGoal()) goal = true;
         if (goal)
         {
 
@@ -42,26 +40,25 @@ public class NaviCharacter : MonoBehaviour {
             }
             else
             {
-
-                //    //ターゲットの方を常に向く
-                //    Look();
-
-                //    //前に進む
-                //    this.transform.position += transform.forward * speed;
-
-                //    //ターゲットに到達したらリターゲット
-                agent.SetDestination(target[index].transform.position);
-                if (IsArea() && index + 1 < target.Count)
+                if (target.Count >= 1)
                 {
-                    if (doOnce)
+                    //ターゲットの方に向かう
+                    agent.SetDestination(target[index].transform.position);
+
+
+                    //ターゲットに到達したらリターゲット
+                    if (IsArea() && index + 1 < target.Count)
                     {
-                        //Debug.Log("Area");
-                        index++;
-                        doOnce = false;
-                        //Look();
+                        if (doOnce)
+                        {
+                            //Debug.Log("Area");
+                            index++;
+                            doOnce = false;
+                            //Look();
+                        }
                     }
+                    else doOnce = true;
                 }
-                else doOnce = true;
 
             }
         }
@@ -69,13 +66,12 @@ public class NaviCharacter : MonoBehaviour {
 
     private void Delayonce()
     {
-        Look();
         once = true;
     }
 
-    private void Look()
+    private void SetGoal()
     {
-        //this.transform.LookAt(target[index].transform);
+        goal = true;
     }
 
     //範囲に入ったかどうか確認する関数
