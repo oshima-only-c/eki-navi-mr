@@ -19,7 +19,8 @@ public class MoveTo : MonoBehaviour
         TargetList = GameObject.FindGameObjectsWithTag("Goal");
 
         //Debug.Log(TargetList.Length);
-        int num = Random.Range(0, TargetList.Length);
+        //int num = Random.Range(0, TargetList.Length);
+        int num = 0;
         //Debug.Log(TargetList[num].name);
 
         //ターゲットを設定
@@ -48,7 +49,9 @@ public class MoveTo : MonoBehaviour
         bool ReturnValue = true;
 
         if (!(target.position.x - 3 < transform.position.x && transform.position.x < target.position.x + 3)) ReturnValue = false;
-        if (!(target.position.y - 3 < transform.position.y && transform.position.y < target.position.y + 3)) ReturnValue = false;
+        if (!(target.position.z - 3 < transform.position.z && transform.position.z < target.position.z + 3)) ReturnValue = false;
+
+        
 
         return ReturnValue;
     }
