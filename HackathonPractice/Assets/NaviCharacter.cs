@@ -9,29 +9,31 @@ public class NaviCharacter : MonoBehaviour {
     private List<GameObject> target = null; //ルート用マーカー
     public float speed = 0.3f;             //スピード
     private bool doOnce = true;
-    private GameObject Player;
     private int index = 0;                  //現在のターゲット
     private bool once = false;
     private MoveTo move1;
     private bool goal = false;
     private NavMeshAgent agent;
+    private GameObject Player;
+    private Mathf Math;
 
 
 
     // Use this for initialization
     void Start()
     {
-        Player = GameObject.Find("Player");
         move1 = GameObject.Find("Sphere").GetComponent<MoveTo>();
         agent = GetComponent<NavMeshAgent>();
+        Player = GameObject.Find("HoloLensCamera");
         Invoke("SetGoal", 5.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         //ルートが確定したら
-        if ((agent.velocity.y > 0 ? agent.velocity.y : agent.velocity.y * -1) > 0.1f) agent.speed = 0.8f;
+        if ((agent.velocity.y > 0 ? agent.velocity.y : agent.velocity.y * -1) > 0.1f) agent.speed = 1.2f;
         else agent.speed = 1.6f;
         if (goal)
         {
@@ -43,7 +45,7 @@ public class NaviCharacter : MonoBehaviour {
             }
             else
             {
-                if (target.Count >= 1)
+                if (target.Count >= 1 && NearPlayer())
                 {
                     //ターゲットの方に向かう
                     agent.SetDestination(target[index].transform.position);
@@ -55,12 +57,29 @@ public class NaviCharacter : MonoBehaviour {
                         if (doOnce)
                         {
                             //Debug.Log("Area");
-                            index++;
+                            if(index + 1 == target.Count)
+                            {
+                                agent.velocity = Vector3.zero;
+#pragma warning disable CS0618 // 型またはメンバーが古い形式です
+                                agent.Stop();
+#pragma warning restore CS0618 // 型またはメンバーが古い形式です
+                            }
+                            else 
+                                index++;
                             doOnce = false;
                             //Look();
                         }
                     }
                     else doOnce = true;
+                }
+                else
+                {
+                    agent.velocity = Vector3.zero;
+#pragma warning disable CS0618 // 型またはメンバーが古い形式です
+                    agent.Stop();
+                    agent.Resume();
+#pragma warning restore CS0618 // 型またはメンバーが古い形式です
+                    //Invoke("ChangePlayer", 3.0f);
                 }
 
             }
@@ -103,10 +122,32 @@ public class NaviCharacter : MonoBehaviour {
         else            return false;
     }
 
+    //範囲内にプレイヤーがいるか
+    private bool NearPlayer()
+    {
+        double area = 5.0f;
+
+        //各ベクターの距離を取得
+        float xVec, yVec, zVec;
+        xVec = Mathf.Abs(Player.transform.position.x - this.transform.position.x);
+        yVec = Mathf.Abs(Player.transform.position.y - this.transform.position.y);
+        zVec = Mathf.Abs(Player.transform.position.z - this.transform.position.z);
+
+        //直線距離を取得
+        float Vec;
+        Vec = Mathf.Sqrt(Mathf.Pow(xVec, 2) + Mathf.Pow(yVec, 2));
+        Vec = Mathf.Sqrt(Mathf.Pow(Vec, 2) + Mathf.Pow(zVec, 2));
+
+        //return (Vec < area) ? true : false;
+        return true;
+   
+    }
+
     //ルートをセット
     public void SetTargetList(List<GameObject> targetlist)
     {
         target = targetlist;
     }
+    
 
 }

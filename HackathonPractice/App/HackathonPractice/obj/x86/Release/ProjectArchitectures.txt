@@ -1,0 +1,1 @@
+C:\Users\yuuya\Documents\GitHub\eki-navi-mr\HackathonPractice\App\HackathonPractice\HackathonPractice.csproj;x86
