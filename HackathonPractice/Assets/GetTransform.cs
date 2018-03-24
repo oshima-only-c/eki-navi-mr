@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class GetTransform : MonoBehaviour {
 
-    public Transform myTransform;
+    private Vector3 objRefGrabPoint = new Vector3(0.1f, 0.0f, 0.0f);
+    private Vector3 draggingPosition = new Vector3(0.1f, 0.0f, 0.0f);
+    private Transform cameraTransform;
+
+    public Transform HostTransform;
 	void Start () {
-        myTransform = this.transform;
+        HostTransform= this.transform;
+
+        cameraTransform = transform;
 	}
-	
-    Transform sendTransform()
+
+    private void Update()
     {
-        return myTransform;
+        //HostTransform.position = Vector3.Lerp(HostTransform.position, draggingPosition + cameraTransform.TransformDirection(objRefGrabPoint), 0.2f);
+
+        //Debug.Log(myTransform.transform.position);
     }
+ 
 }

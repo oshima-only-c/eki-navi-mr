@@ -436,6 +436,9 @@
     <AppxPackagedFile Include="C:\Users\yuuya\Documents\GitHub\eki-navi-mr\HackathonPractice\App\HackathonPractice\Data\level0.resS">
       <PackagePath>Data\level0.resS</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\yuuya\Documents\GitHub\eki-navi-mr\HackathonPractice\App\HackathonPractice\Data\sharedassets0.assets.resS">
+      <PackagePath>Data\sharedassets0.assets.resS</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\yuuya\Documents\GitHub\eki-navi-mr\HackathonPractice\App\HackathonPractice\Data\managedAssemblies.txt">
       <PackagePath>Data\managedAssemblies.txt</PackagePath>
     </AppxPackagedFile>
