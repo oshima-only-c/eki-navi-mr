@@ -1,1 +1,9 @@
+<<<<<<< HEAD
 djfasaiueo
+=======
+<<<<<<< HEAD
+aiueo
+=======
+aiueo
+>>>>>>> Test
+>>>>>>> Kurihara

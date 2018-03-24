@@ -35,7 +35,7 @@ public class GetMarker : MonoBehaviour {
     {
         if (other.gameObject.tag == "Marker")
         {
-            if (MarkerList.Count <= 0 || MarkerList[MarkerList.Count - 1] != other.gameObject)
+            if (MarkerList.Count <= 1 || (MarkerList[MarkerList.Count - 1] != other.gameObject && MarkerList[MarkerList.Count - 2] != other.gameObject))
             {
                 //マーカーリストに追加
                 if (other.gameObject != null)
