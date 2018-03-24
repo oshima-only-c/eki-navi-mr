@@ -16,7 +16,7 @@ public class NaviCharacter : MonoBehaviour {
     private NavMeshAgent agent;
     private GameObject Player;
     private Mathf Math;
-
+    private Animator anim;
 
     // Use this for initialization
     void Start()
@@ -27,6 +27,8 @@ public class NaviCharacter : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         Player = GameObject.Find("HoloLensCamera");
         Invoke("SetGoal", 5.0f);
+        anim = GameObject.Find("Minamis").GetComponent<Animator>();
+        //Debug.Log(anim);
     }
 
     // Update is called once per frame
@@ -52,6 +54,8 @@ public class NaviCharacter : MonoBehaviour {
                     //ターゲットの方に向かう
                     agent.SetDestination(target[index].transform.position);
 
+                    //プレイヤーと近いとき
+                    anim.SetBool("Walk",true);
 
                     //ターゲットに到達したらリターゲット
                     if (IsArea() && index + 1 < target.Count)
@@ -82,6 +86,9 @@ public class NaviCharacter : MonoBehaviour {
                     agent.Resume();
 #pragma warning restore CS0618 // 型またはメンバーが古い形式です
                     //Invoke("ChangePlayer", 3.0f);
+
+                    //プレイヤーが離れたとき
+                    anim.SetBool("Walk", false);
                 }
 
             }
